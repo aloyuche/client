@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Cookies from "universal-cookie";
-import Axios from "axios";
+import axios from "axios";
 
 import SigninImage from "../asset/signup.jpg";
 
@@ -13,6 +13,7 @@ const InitialState = {
   avatarUrl: "",
 };
 
+const cookies = new Cookies();
 const Auth = () => {
   const [form, setForm] = useState(InitialState);
 
@@ -20,10 +21,34 @@ const Auth = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(form);
+    const { fullname, username, password, phoneNumber, avatarUrl } = form;
+
+    const URL = "http://localhost:5500/auth";
+
+    const {
+      data: { token, userID, hashedPassword },
+    } = await axios.post(`${URL}/${isSignUP ? "signup" : "signin"}`, {
+      username,
+      password,
+      fullname,
+      phoneNumber,
+      avatarUrl,
+    });
+
+    cookies.set("token", token);
+    cookies.set("username", username);
+    cookies.set("fullname", fullname);
+    cookies.set("userID", userID);
+
+    if (isSignUP) {
+      cookies.set("phoneNumber", phoneNumber);
+      cookies.set("avatarUrl", avatarUrl);
+      cookies.set("hashedPassword", hashedPassword);
+    }
+    window.location.reload();
   };
   const switchMode = () => {
     setIsSignUP((prevIsSignUp) => !prevIsSignUp);
