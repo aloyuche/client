@@ -52,9 +52,11 @@ const Auth = () => {
     }
     window.location.reload();
   };
+
   const switchMode = () => {
     setIsSignUP((prevIsSignUp) => !prevIsSignUp);
   };
+
   return (
     <div className="auth__form-container">
       <div className="auth__form-container_fields">
