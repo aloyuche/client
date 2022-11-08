@@ -27,10 +27,12 @@ const Auth = () => {
     const { fullname, username, password, phoneNumber, avatarUrl } = form;
 
     const URL = "http://localhost:5500/auth";
+    /// To connect to mongoDb use
+    // const URL = "http://localhost:5500/api
 
     const {
       data: { token, userID, hashedPassword },
-    } = await axios.post(`${URL}/${isSignUP ? "signup" : "signin"}`, {
+    } = await axios.post(`${URL}/${isSignUP ? "signup" : "login"}`, {
       username,
       password,
       fullname,
