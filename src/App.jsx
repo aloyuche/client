@@ -10,7 +10,7 @@ import { ChannelListContainer, ChannelContainer, Auth } from "./components";
 
 const cookies = new Cookies();
 
-const apiKey = "6ztxqx9dwpg4";
+const apiKey = "sk98w2xrqkjz";
 const authToken = cookies.get("token");
 
 const client = StreamChat.getInstance(apiKey);
